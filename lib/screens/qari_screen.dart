@@ -19,18 +19,18 @@ class _QariListScreenState extends State<QariListScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar: AppBar(title: Text('Qari\'s '),centerTitle: true,),
+        appBar: AppBar(title: const Text('Qari\'s '),centerTitle: true,),
         body: Padding(
           padding: const EdgeInsets.only(top: 20,left: 12,right: 12),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SizedBox(height: 12,),
+              const SizedBox(height: 12,),
               Container(
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(32),
                     color: Colors.white,
-                    boxShadow: [
+                    boxShadow: const [
                       BoxShadow(
                         color: Colors.black54,
                         blurRadius: 1,
@@ -39,8 +39,8 @@ class _QariListScreenState extends State<QariListScreen> {
                       ),
                     ]
                 ),
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
+                child: const Padding(
+                  padding: EdgeInsets.all(8.0),
                   child: Row(
                     children: [
                       Text('Search'),
@@ -50,16 +50,22 @@ class _QariListScreenState extends State<QariListScreen> {
                   ),
                 ),
               ),
-              SizedBox(height: 20,),
+              const SizedBox(height: 20,),
               Expanded(
                 child: FutureBuilder(
                   future: apiServices.getQariList(),
                   builder: (BuildContext context , AsyncSnapshot<List<Qari>> snapshot){
                     if(snapshot.hasError){
-                      return Center(child: Text('Qari\'s data not found '),);
+                      print("API Error: ${snapshot.error}");
+                      return const Center(child: Text('Qari\'s data not found '));
                     }
-                    if(snapshot.connectionState == ConnectionState.waiting){
-                      return Center(child: CircularProgressIndicator(),);
+                    /*if(snapshot.connectionState == ConnectionState.waiting){
+                      return const Center(child: CircularProgressIndicator(),);
+                    }*/
+
+                    if (!snapshot.hasData || snapshot.data!.isEmpty) {
+                      print(" No data received");
+                      return const Center(child: Text("No Qari data"));
                     }
                     return ListView.builder(
                       itemCount: snapshot.data!.length,
@@ -67,8 +73,8 @@ class _QariListScreenState extends State<QariListScreen> {
                         return QariCustomTile(qari: snapshot.data![index],
                             ontap: (){
                               Navigator.push(context,
-                                  MaterialPageRoute(builder:(context)=>
-                                      AudioSurahScreen(qari: snapshot.data![index])));
+                                MaterialPageRoute(builder:(context)=>
+                                    AudioSurahScreen(qari: snapshot.data![index]),),);
                             });
                       },
                     );

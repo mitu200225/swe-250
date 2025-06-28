@@ -19,7 +19,7 @@ class JuzScreen extends StatelessWidget {
           future: apiServices.getJuzz(Constants.juzIndex!),
           builder: (context, AsyncSnapshot<JuzModel> snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
-              return Center(child: CircularProgressIndicator(),);
+              return const Center(child: CircularProgressIndicator(),);
             } else if(snapshot.hasData){
               print('${snapshot.data!.juzAyahs.length} length');
               return ListView.builder(
@@ -30,7 +30,7 @@ class JuzScreen extends StatelessWidget {
               );
             }
             else{
-              return Center(child: Text('Data not found'),);
+              return const Center(child: Text('Data not found'),);
             }
           },
         ),

@@ -25,15 +25,15 @@ class SajdaAyat {
 
   SajdaAyat(
       {required this.number,
-       required this.sajdaNumber,
-       required this.englishNameTranslation,
-       required this.juzNumber,
-       required this.manzilNumber,
-       required this.revelationType,
-       required this.rukuNumber,
-       required this.surahEnglishName,
-       required this.surahName,
-       required this.text});
+        required this.sajdaNumber,
+        required this.englishNameTranslation,
+        required this.juzNumber,
+        required this.manzilNumber,
+        required this.revelationType,
+        required this.rukuNumber,
+        required this.surahEnglishName,
+        required this.surahName,
+        required this.text});
 
   factory SajdaAyat.fromJSON(Map<String, dynamic> json) {
     return SajdaAyat(

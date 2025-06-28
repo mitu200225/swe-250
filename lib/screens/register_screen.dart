@@ -5,11 +5,12 @@ import 'package:flutter_quran_yt/controllers/registrationController.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 
+import '../controllers/registrationController.dart';
 import '../widgets/decoration_widget.dart';
 
 class RegisterScreen extends StatelessWidget {
 
-  RegisterController  _registrationController = Get.put(RegisterController());
+  final RegisterController  _registrationController = Get.put(RegisterController());
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +29,7 @@ class RegisterScreen extends StatelessWidget {
                   Container(
                     width: double.infinity,
                     height: height * 0.3,
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       color: Constants.kPrimary,
                       borderRadius: BorderRadius.only(
                         bottomLeft: Radius.circular(70),
@@ -68,7 +69,7 @@ class RegisterScreen extends StatelessWidget {
                             child: TextFormField(
                               // The validator receives the text that the user has entered.
                               controller:
-                                  _registrationController.nameController,
+                              _registrationController.nameController,
                               onSaved: (value) {
                                 _registrationController.name = value!;
                               },
@@ -89,7 +90,7 @@ class RegisterScreen extends StatelessWidget {
                               keyboardType: TextInputType.emailAddress,
                               // The validator receives the text that the user has entered.
                               controller:
-                                  _registrationController.emailController,
+                              _registrationController.emailController,
                               onSaved: (value) {
                                 _registrationController.email = value!;
                               },
@@ -106,7 +107,7 @@ class RegisterScreen extends StatelessWidget {
                             child: TextFormField(
                                 obscureText: true,
                                 controller:
-                                    _registrationController.passwordController,
+                                _registrationController.passwordController,
                                 onSaved: (value) {
                                   _registrationController.password = value!;
                                 },
@@ -122,41 +123,39 @@ class RegisterScreen extends StatelessWidget {
                             height: 50,
                             child: ElevatedButton(
                               style: ElevatedButton.styleFrom(
-                                elevation: 5,
-                                primary: Constants.kPrimary,
-                                onPrimary: Colors.white,
+                                foregroundColor: Colors.white, backgroundColor: Constants.kPrimary, elevation: 5,
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(30)),
                                 padding: const EdgeInsets.symmetric(
                                     horizontal: 50, vertical: 10),
                                 textStyle: const TextStyle(
                                     fontSize: 20,
-                                    fontFamily: 'CormorantGaramond'),
+                                    fontFamily: 'CormorantCardamon'),
                               ),
                               child: _registrationController.isLoading.value
-                                  ? SizedBox(
-                                      height: 20,
-                                      width: 20,
-                                      child: CircularProgressIndicator(
-                                        strokeWidth: 3,
-                                        valueColor:
-                                            AlwaysStoppedAnimation<Color>(
-                                                Colors.white),
-                                      ),
-                                    )
+                                  ? const SizedBox(
+                                height: 20,
+                                width: 20,
+                                child: CircularProgressIndicator(
+                                  strokeWidth: 3,
+                                  valueColor:
+                                  AlwaysStoppedAnimation<Color>(
+                                      Colors.white),
+                                ),
+                              )
                                   : FittedBox(
-                                      child: Obx(
-                                        () => _registrationController
-                                                .isLoading.value
-                                            ? Center(
-                                                child:
-                                                    CircularProgressIndicator(color: Colors.white,),
-                                              )
-                                            : Text(
-                                                'Register',
-                                              ),
-                                      ),
-                                    ),
+                                child: Obx(
+                                      () => _registrationController
+                                      .isLoading.value
+                                      ? const Center(
+                                    child:
+                                    CircularProgressIndicator(color: Colors.white,),
+                                  )
+                                      : const Text(
+                                    'Register',
+                                  ),
+                                ),
+                              ),
                               onPressed: () {
                                 _registrationController.registration();
                               },
@@ -179,7 +178,7 @@ class RegisterScreen extends StatelessWidget {
                       // op.signOut();
                       Get.offAllNamed('/login');
                     },
-                    child: Text(
+                    child: const Text(
                       'Login',
                       style: TextStyle(
                           color: Constants.kPrimary, fontSize: 18),
@@ -196,4 +195,3 @@ class RegisterScreen extends StatelessWidget {
 
 
 }
-

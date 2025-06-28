@@ -28,28 +28,28 @@ class _QuranScreenState extends State<QuranScreen> {
       child: SafeArea(
         child: Scaffold(
           appBar: AppBar(
-            title: Text('Quran'),
+            title: const Text('Quran'),
             centerTitle: true,
-            bottom: TabBar(
+            bottom: const TabBar(
               tabs: [
                 Text(
                   'Surah',
                   style: TextStyle(
-                      color: Colors.white,
+                      color: Colors.blue,
                       fontWeight: FontWeight.w700,
                       fontSize: 20),
                 ),//index - 0
                 Text(
                   'Sajda',
                   style: TextStyle(
-                      color: Colors.white,
+                      color: Colors.blue,
                       fontWeight: FontWeight.w700,
                       fontSize: 20),
                 ),//index - 1
                 Text(
                   'Juz',
                   style: TextStyle(
-                      color: Colors.white,
+                      color: Colors.blue,
                       fontWeight: FontWeight.w700,
                       fontSize: 20),
                 ),// index - 2
@@ -72,9 +72,9 @@ class _QuranScreenState extends State<QuranScreen> {
                             });
                             Navigator.pushNamed(context, Surahdetail.id);
                           }),
-                     );
+                    );
                   }
-                  return Center(
+                  return const Center(
                     child: CircularProgressIndicator(),
                   );
                 },
@@ -83,10 +83,10 @@ class _QuranScreenState extends State<QuranScreen> {
                 future: apiServices.getSajda(),
                 builder: (context,AsyncSnapshot<SajdaList> snapshot){
                   if(snapshot.hasError){
-                    return Center(child: Text('Something went wrong'),);
+                    return const Center(child: Text('Something went wrong'),);
                   }
                   if(snapshot.connectionState == ConnectionState.waiting){
-                    return Center(child: CircularProgressIndicator(),);
+                    return const Center(child: CircularProgressIndicator(),);
                   }
                   return ListView.builder(
                     itemCount: snapshot.data!.sajdaAyahs.length,
@@ -96,9 +96,9 @@ class _QuranScreenState extends State<QuranScreen> {
               ),
               GestureDetector(
                 child: Container(
-                  padding: EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.all(8.0),
                   child: GridView.builder(
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3),
+                    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3),
                     itemCount: 30,
                     itemBuilder: (context,index){
                       return GestureDetector(
@@ -112,7 +112,7 @@ class _QuranScreenState extends State<QuranScreen> {
                           elevation: 4,
                           color: Colors.blueGrey,
                           child: Center(
-                            child: Text('${index+1} ',style: TextStyle(color: Colors.white,fontSize: 20),),
+                            child: Text('${index+1} ',style: const TextStyle(color: Colors.white,fontSize: 20),),
                           ),
                         ),
                       );

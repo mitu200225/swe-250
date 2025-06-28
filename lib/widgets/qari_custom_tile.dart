@@ -20,8 +20,8 @@ class _QariCustomTileState extends State<QariCustomTile> {
         padding: const EdgeInsets.all(4.0),
         child: Container(
           //alignment: Alignment.centerLeft,
-          padding: EdgeInsets.all(20),
-          decoration: BoxDecoration(
+          padding: const EdgeInsets.all(20),
+          decoration: const BoxDecoration(
             color: Colors.white,
             shape: BoxShape.rectangle,
             borderRadius: BorderRadius.all(Radius.circular(8)),
@@ -38,7 +38,7 @@ class _QariCustomTileState extends State<QariCustomTile> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(widget.qari.name!,textAlign: TextAlign.start,
-                style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),),
+                style: const TextStyle(fontSize: 20,fontWeight: FontWeight.bold),),
             ],
           ),
         ),

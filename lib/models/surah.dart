@@ -8,7 +8,7 @@ class Surah{
   String? revelationType;
 
   Surah({this.number, this.name, this.englishName, this.englishNameTranslation,
-      this.numberOfAyahs, this.revelationType});
+    this.numberOfAyahs, this.revelationType});
 
   factory  Surah.fromJson(Map<String,dynamic> json){
     return Surah(

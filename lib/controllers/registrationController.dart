@@ -20,9 +20,9 @@ class RegisterController extends GetxController {
 
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
-   TextEditingController nameController = TextEditingController();
-   TextEditingController emailController = TextEditingController();
-   TextEditingController passwordController = TextEditingController();
+  TextEditingController nameController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
 
 
   var name = '';
@@ -36,7 +36,7 @@ class RegisterController extends GetxController {
   var isLoading = false.obs;
 
   CollectionReference userDatBaseReference = FirebaseFirestore.instance.collection("user");
-  FirebaseStorage _storage = FirebaseStorage.instance;
+  final FirebaseStorage _storage = FirebaseStorage.instance;
 
 
   @override
@@ -52,7 +52,7 @@ class RegisterController extends GetxController {
 
     if (pickedFile != null) {
       selectedImagePath.value = pickedFile.path;
-      selectedImageSize.value = ((File(selectedImagePath.value)).lengthSync() / 1024 / 1024).toStringAsFixed(2) + " Mb";
+      selectedImageSize.value = "${((File(selectedImagePath.value)).lengthSync() / 1024 / 1024).toStringAsFixed(2)} Mb";
       isImgAvailable.value = true;
     } else {
       isImgAvailable.value = false;
@@ -75,8 +75,8 @@ class RegisterController extends GetxController {
   }
 
   String? validPassword(String value) {
-    if (value.length < 6) {
-      return "Password must be of 6 characters";
+    if (value.length < 8) {
+      return "Password must be of 8 characters";
     }
     return null;
   }
@@ -118,8 +118,6 @@ class RegisterController extends GetxController {
       });
     } on FirebaseAuthException catch (e) {
       snackMessage('user already exist');
-    } catch (e) {
-
     }
 
     return userCredential;
@@ -134,12 +132,12 @@ class RegisterController extends GetxController {
         8, (_) => _chars.codeUnitAt(_rnd.nextInt(_chars.length))));
 
     try {
-      await _storage.ref('uploads/user/${randomStr}').putFile(file);
+      await _storage.ref('uploads/user/$randomStr').putFile(file);
     } on FirebaseException catch (e) {
       snackMessage(e.code.toString());
     }
     String downloadURL =
-    await _storage.ref('uploads/user/${randomStr}').getDownloadURL();
+    await _storage.ref('uploads/user/$randomStr').getDownloadURL();
 
     return downloadURL;
   }

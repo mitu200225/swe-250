@@ -16,8 +16,8 @@ class MainScreen extends StatefulWidget {
 
 class _MainScreenState extends State<MainScreen> {
 
-   int selectindex = 0;
-   List<Widget> _widgetsList = [HomeScreen(),QuranScreen(),QariListScreen(),PrayerScreen()];
+  int selectindex = 0;
+  final List<Widget> _widgetsList = [const HomeScreen(),const QuranScreen(),const QariListScreen(),const PrayerScreen()];
 
 
 

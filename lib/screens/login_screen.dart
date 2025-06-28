@@ -4,11 +4,13 @@ import 'package:flutter_quran_yt/controllers/loginController.dart';
 import 'package:flutter_quran_yt/controllers/registrationController.dart';
 import 'package:flutter_quran_yt/widgets/decoration_widget.dart';
 import 'package:get/get.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+
 
 class LoginScreen extends StatelessWidget {
-   LoginScreen({Key? key}) : super(key: key);
+  LoginScreen({Key? key}) : super(key: key);
 
-   LoginController _loginController = Get.put(LoginController());
+  final LoginController _loginController = Get.put(LoginController());
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +28,7 @@ class LoginScreen extends StatelessWidget {
                   Container(
                     width: double.infinity,
                     height: height * 0.3,
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       color: Constants.kPrimary,
                       borderRadius: BorderRadius.only(
                         bottomLeft: Radius.circular(70),
@@ -77,7 +79,7 @@ class LoginScreen extends StatelessWidget {
                               decoration: DecorationWidget(context, "Enter Email", Icons.email),
                             ),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 20,
                           ),
                           Padding(
@@ -96,7 +98,7 @@ class LoginScreen extends StatelessWidget {
                               decoration: DecorationWidget(context, "Enter Password", Icons.vpn_key),
                             ),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 20,
                           ),
                           Container(
@@ -107,7 +109,7 @@ class LoginScreen extends StatelessWidget {
                               onPressed: () {
                                 //Get.toNamed('/forgetPassword');
                               },
-                              child: Text(
+                              child: const Text(
                                 'Forgot Password?',
                                 style: TextStyle(
                                   color: Constants.kPrimary,
@@ -122,9 +124,7 @@ class LoginScreen extends StatelessWidget {
                               height: 50,
                               child: ElevatedButton(
                                 style: ElevatedButton.styleFrom(
-                                  elevation: 5,
-                                  primary: Constants.kPrimary,
-                                  onPrimary: Colors.white,
+                                  foregroundColor: Colors.white, backgroundColor: Constants.kPrimary, elevation: 5,
                                   shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(30)),
                                   padding: const EdgeInsets.symmetric(
@@ -137,10 +137,10 @@ class LoginScreen extends StatelessWidget {
                                   child: Obx(
                                         () => _loginController
                                         .isLoading.value
-                                        ? Center(
+                                        ? const Center(
                                       child: CircularProgressIndicator(color: Colors.white,),
                                     )
-                                        : Text(
+                                        : const Text(
                                       'Login',
                                     ),
                                   ),
@@ -166,7 +166,7 @@ class LoginScreen extends StatelessWidget {
                     onPressed: () {
                       Get.offNamed('/register');
                     },
-                    child: Text(
+                    child: const Text(
                       'Register',
                       style: TextStyle(color: Constants.kPrimary),
                     ),

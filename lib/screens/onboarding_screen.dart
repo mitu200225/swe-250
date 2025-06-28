@@ -19,10 +19,10 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
           pages: [
             PageViewModel(
               title: "Read Quran",
-              bodyWidget: Column(
+              bodyWidget: const Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
-                children: const [
+                children: [
                   Padding(
                     padding: EdgeInsets.all(8.0),
                     child: Text(
@@ -35,9 +35,9 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
             ),
             PageViewModel(
               title: "Prayer Alerts",
-              bodyWidget: Column(
+              bodyWidget: const Column(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: const [
+                children: [
                   Padding(
                     padding: EdgeInsets.all(8.0),
                     child: Text(
@@ -50,9 +50,9 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
             ),
             PageViewModel(
               title: "Build Better Habits",
-              bodyWidget: Column(
+              bodyWidget: const Column(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: const [
+                children: [
                   Padding(
                     padding: EdgeInsets.all(8.0),
                     child: Text(

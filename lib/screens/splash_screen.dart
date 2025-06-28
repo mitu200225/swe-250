@@ -9,35 +9,26 @@ import 'package:shared_preferences/shared_preferences.dart';
 class SplashScreen extends StatefulWidget {
   @override
   State<SplashScreen> createState() => _SplashScreenState();
+// TODO: implement createState
 }
-class _SplashScreenState extends State<SplashScreen> {
 
+class _SplashScreenState  extends State<SplashScreen> {
   bool alreadyUsed = false;
-
-  void getData()async{
-    // Obtain shared preferences.
+  void getDate()async{
     final prefs = await SharedPreferences.getInstance();
-    alreadyUsed =  prefs.getBool("alreadyUsed") ?? false;
-    // onBoarding screen will show for first time
+    alreadyUsed = prefs.getBool("alreadyUsed") ?? false;
   }
-
   @override
-  void initState() {
-
+  void initState(){
     super.initState();
-    getData();
-    // Timer(Duration(seconds: 3), ()=>Navigator.pushReplacement(context,
-    // MaterialPageRoute(builder: (context){
-    //   return  alreadyUsed ? MainScreen() : OnBoardingScreen();
-    // })
-    // ));
-    Timer(Duration(seconds: 3),(){
+    getDate();
+    Timer(Duration(seconds: 3),() {
       Get.offNamed("/login");
     });
   }
-
   @override
   Widget build(BuildContext context) {
+    // TODO: implement build
     return SafeArea(
       child: Scaffold(
         body: Stack(
@@ -47,11 +38,11 @@ class _SplashScreenState extends State<SplashScreen> {
               bottom: 0,
               left: 0,
               right: 0,
-              child: Image.asset('assets/islamic.png'),
-            ),
+              child: Image.asset('assets/islamic.png'),),
           ],
         ),
       ),
     );
   }
+
 }

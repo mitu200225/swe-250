@@ -6,7 +6,7 @@ InputDecoration DecorationWidget(BuildContext context, String text, IconData ico
     prefixIcon: Icon(icon),
     labelText: text,
     contentPadding: EdgeInsets.zero,
-    enabledBorder: OutlineInputBorder(),
+    enabledBorder: const OutlineInputBorder(),
     focusedBorder: OutlineInputBorder(
       borderSide: BorderSide(
         width: 2,

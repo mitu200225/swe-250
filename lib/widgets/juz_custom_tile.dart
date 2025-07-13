@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import '../models/juz.dart';
 
@@ -32,3 +33,4 @@ class JuzCustomTile extends StatelessWidget {
     );
   }
 }
+

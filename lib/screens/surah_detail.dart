@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'package:flutter_quran_yt/constants/constants.dart';
 import 'package:solid_bottom_sheet/solid_bottom_sheet.dart';
@@ -141,3 +142,4 @@ class _SurahdetailState extends State<Surahdetail> {
     );
   }
 }
+

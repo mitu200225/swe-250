@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import '../models/qari.dart';
 
@@ -46,3 +47,4 @@ class _QariCustomTileState extends State<QariCustomTile> {
     );
   }
 }
+

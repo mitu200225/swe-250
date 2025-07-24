@@ -161,6 +161,7 @@ class RegisterController extends GetxController {
         if (url != null) {
           userDatBaseReference.doc(user!.uid).update({
             'uid': user.uid,
+            // Object-Orientation Abuser -> Data Class/No Encapsulation
             'name': nameController.text,
             'email': emailController.text,
             'url': url
@@ -186,3 +187,157 @@ class RegisterController extends GetxController {
     }
   }
 }
+
+// After solving code smell
+
+/*
+import 'dart:io';
+import 'dart:math';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
+
+import '../common/common.dart';
+
+class RegisterController extends GetxController {
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+
+  final nameController = TextEditingController();
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
+
+  final isLoading = false.obs;
+  final isImgAvailable = false.obs;
+  final selectedImagePath = ''.obs;
+  final selectedImageSize = ''.obs;
+
+  final _picker = ImagePicker();
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final FirebaseStorage _storage = FirebaseStorage.instance;
+  final CollectionReference _userDb = FirebaseFirestore.instance.collection("user");
+
+  @override
+  void dispose() {
+    nameController.dispose();
+    emailController.dispose();
+    passwordController.dispose();
+    super.dispose();
+  }
+
+  // Validation
+  String? validateName(String value) =>
+      value.length < 3 ? "Name must be at least 3 characters" : null;
+
+  String? validateEmail(String value) =>
+      !GetUtils.isEmail(value.trim()) ? "Please provide a valid email" : null;
+
+  String? validatePassword(String value) =>
+      value.length < 8 ? "Password must be at least 8 characters" : null;
+
+  // Image Handling
+  Future<void> pickImage(ImageSource source) async {
+    final pickedFile = await _picker.pickImage(source: source);
+    if (pickedFile != null) {
+      final file = File(pickedFile.path);
+      selectedImagePath.value = pickedFile.path;
+      selectedImageSize.value =
+          "${(file.lengthSync() / 1024 / 1024).toStringAsFixed(2)} Mb";
+      isImgAvailable.value = true;
+    } else {
+      isImgAvailable.value = false;
+      snackMessage("No image selected");
+    }
+  }
+
+  // Registration
+  Future<void> register() async {
+    if (!formKey.currentState!.validate()) return;
+    isLoading.value = true;
+    formKey.currentState!.save();
+
+    final email = emailController.text.trim();
+    final password = passwordController.text.trim();
+
+    try {
+      final userCred = await _auth.createUserWithEmailAndPassword(
+          email: email, password: password);
+      await userCred.user!.sendEmailVerification();
+      snackMessage('Check your Email');
+      await _saveUserData(userCred.user!.uid);
+      Get.offAllNamed('/login');
+    } on FirebaseAuthException catch (_) {
+      snackMessage("User already exists");
+    } finally {
+      isLoading.value = false;
+    }
+  }
+
+  Future<void> _saveUserData(String uid) async {
+    await _userDb.doc(uid).set({
+      'uid': uid,
+      'name': nameController.text.trim(),
+      'email': emailController.text.trim(),
+      'url': '',
+    });
+  }
+
+  // Uploading
+  Future<String?> uploadImage(String filePath) async {
+    final file = File(filePath);
+    final randomStr = _generateRandomString(8);
+    final refPath = 'uploads/user/$randomStr';
+
+    try {
+      await _storage.ref(refPath).putFile(file);
+      return await _storage.ref(refPath).getDownloadURL();
+    } on FirebaseException catch (e) {
+      snackMessage(e.message ?? "Upload failed");
+      return null;
+    }
+  }
+
+  String _generateRandomString(int length) {
+    const chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+    final rand = Random();
+    return String.fromCharCodes(Iterable.generate(
+        length, (_) => chars.codeUnitAt(rand.nextInt(chars.length))));
+  }
+
+  // Update
+  Future<void> updateProfile({required String fallbackUrl}) async {
+    final user = _auth.currentUser;
+    if (user == null) return;
+
+    String imageUrl = fallbackUrl;
+
+    if (isImgAvailable.value) {
+      final uploadedUrl = await uploadImage(selectedImagePath.value);
+      if (uploadedUrl != null) {
+        imageUrl = uploadedUrl;
+      } else {
+        snackMessage("Image not uploaded");
+        return;
+      }
+    }
+
+    await _userDb.doc(user.uid).update({
+      'uid': user.uid,
+      'name': nameController.text.trim(),
+      'email': emailController.text.trim(),
+      'url': imageUrl,
+    });
+
+    try {
+      await user.updateEmail(emailController.text.trim());
+      snackMessage("Updated Successfully");
+    } catch (_) {
+      snackMessage("Email not updated");
+    }
+  }
+}
+
+ */

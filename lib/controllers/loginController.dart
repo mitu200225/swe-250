@@ -16,6 +16,7 @@ class LoginController extends GetxController{
 
   String email = '';
   String password = '';
+  // Dispensable -> Duplicate Code/ Dead Code
   var isLoading = false.obs;
 
 
@@ -42,7 +43,7 @@ class LoginController extends GetxController{
 
   Future<void> login() async {
     print("Login button pressed!");
-
+    // Bloaters -> Long Method
     if (!formKey.currentState!.validate()) {
       print("Form validation failed!");
       return;
@@ -54,7 +55,7 @@ class LoginController extends GetxController{
 
     try {
       await FirebaseAuth.instance.setPersistence(Persistence.LOCAL);
-
+      // Object Orientation Abuser -> Feature Envy
       UserCredential userCredential = await _auth.signInWithEmailAndPassword(
         email: emailController.text.trim(),
         password: passwordController.text.trim(),
@@ -64,6 +65,7 @@ class LoginController extends GetxController{
       Get.offAll(() => MainScreen());
     } on FirebaseAuthException catch (e) {
       print(" FirebaseAuthException: ${e.code} - ${e.message}");
+      // Change Prevent -> Divergent Change(Tightly Coupled)
       Get.snackbar("Error", "${e.code}: ${e.message}",
           snackPosition: SnackPosition.BOTTOM);
     } catch (e) {
@@ -75,3 +77,62 @@ class LoginController extends GetxController{
     }
   }
 }
+
+//After solving code smell
+
+/*
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import '../services/auth_service.dart';
+import '../screens/main_screen.dart';
+
+class LoginController extends GetxController {
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
+
+  final isLoading = false.obs;
+  final AuthService _authService = Get.find<AuthService>();
+
+  @override
+  void dispose() {
+    emailController.dispose();
+    passwordController.dispose();
+    super.dispose();
+  }
+
+  String? validateEmail(String value) {
+    if (!GetUtils.isEmail(value.trim())) {
+      return "Please provide a valid email";
+    }
+    return null;
+  }
+
+  String? validatePassword(String value) {
+    if (value.length < 8) {
+      return "Password must be at least 8 characters";
+    }
+    return null;
+  }
+
+  Future<void> login() async {
+    if (!formKey.currentState!.validate()) return;
+
+    isLoading.value = true;
+
+    final email = emailController.text.trim();
+    final password = passwordController.text.trim();
+
+    final result = await _authService.login(email, password);
+
+    result.fold(
+      (error) => Get.snackbar("Error", error, snackPosition: SnackPosition.BOTTOM),
+      (_) => Get.offAll(() => MainScreen()),
+    );
+
+    isLoading.value = false;
+  }
+}
+
+ */

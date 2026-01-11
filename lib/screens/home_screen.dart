@@ -47,7 +47,7 @@ class _HomeScreenState extends State<HomeScreen> {
         body: Column(
           children: [
             Container(
-              height: _size.height * 0.22, // 22% of screen
+              height: _size.height * 0.22, 
               width: double.infinity,
               decoration: const BoxDecoration(
                   image: DecorationImage(

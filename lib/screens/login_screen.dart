@@ -110,7 +110,7 @@ class LoginScreen extends StatelessWidget {
                             child: TextButton(
                               // Dispensable -> Dead Code
                               onPressed: () {
-                                //Get.toNamed('/forgetPassword');
+                               
                               },
                               child: const Text(
                                 'Forgot Password?',
@@ -162,7 +162,7 @@ class LoginScreen extends StatelessWidget {
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
-                // ignore: prefer_const_literals_to_create_immutables
+               
                 children: [
                   const Text('Don\'t have an account ? '),
                   TextButton(
